@@ -21,7 +21,6 @@ class GetPricesApiView(APIView):
         UniSwapV3Provider.get_prices(number_of_days=days)
 
     def get(self, request):
-        # todo: add blocks
         # get the prices
         self._get_prices(days=settings.DEFAULT_PRICE_DAYS)
 
