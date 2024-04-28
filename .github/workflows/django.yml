@@ -1,0 +1,43 @@
+name: Price CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: self-hosted
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: ["3.10"]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install venv
+      run: virtualenv venv
+    - name: Install Dependencies
+      run: |
+        source venv/bin/activate
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Make envfile
+      run: |
+        touch .env
+        echo "${{ secrets.ENV_FILE }}" > .env
+    - name: Migrate changes
+      run: |
+        source venv/bin/activate
+        python manage.py migrate
+    - name: Collect static
+      run: | 
+        source venv/bin/activate
+        python manage.py collectstatic --noinput
+    - name: Restart ctls
+      run: |
+        systemctl restart price_gunicorn
