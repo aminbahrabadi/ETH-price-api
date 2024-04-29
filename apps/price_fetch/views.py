@@ -38,6 +38,6 @@ class GetPricesApiView(APIView):
                     for index, provider in enumerate(providers, start=1)
                 }
             )
-            .order_by('timestamp')
+            .order_by('-timestamp')[:30]
         )
         return Response(prices, status=status.HTTP_200_OK)
