@@ -83,7 +83,7 @@ class AddressBalanceFetchView(View):
                     }
                 )
 
-            return JsonResponse({'address': address, 'arb_balances': arb_balances})
+            return JsonResponse({'address': address, 'balances': arb_balances})
 
         except requests.exceptions.RequestException as e:
             return JsonResponse({'error': f'Request Error: {str(e)}'}, status=500)
