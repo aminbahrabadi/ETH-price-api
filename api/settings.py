@@ -134,3 +134,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 COINGECKO_API_KEY = env('COINGECKO_API_KEY')
 DEFAULT_PRICE_DAYS = 30
+
+ALCHEMY_API_KEY = 'xyD4jGLR0SRHAcf3aWd0_WtexZvXetUt'
+ARB_NETWORK_URL = 'https://arb-mainnet.g.alchemy.com/v2'
